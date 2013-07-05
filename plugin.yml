@@ -1,9 +1,12 @@
 name: SimplePlugin
 main: io.github.lambo993.SimplePlugin
-version: 0.4.9
+version: 0.5.0
 authors: [Lambo993]
 description: This is a very simple plugins.
 commands:
+  simpleplugin:
+    description: SimplePlugin help
+    usage: /<command> <help|reload|version>
   ignite:
     description: Set a player on fire.
     aliases: [lighter]

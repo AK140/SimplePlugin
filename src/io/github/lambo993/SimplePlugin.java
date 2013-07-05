@@ -6,7 +6,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SimplePlugin extends JavaPlugin {
 	
-	public static final int BUKKIT_VERSION = 2763;
+	public static final int BUKKIT_VERSION = 2794;
 
 	@Override
 	public void onEnable() {
@@ -15,6 +15,7 @@ public final class SimplePlugin extends JavaPlugin {
 		
 		this.getLogger().info("SimplePlugin has been enabled!");
 		
+		getCommand("simpleplugin").setExecutor(new Commandsimpleplugin(this));
 		getCommand("ignite").setExecutor(new Commandignite(this));
 		getCommand("FreeItem").setExecutor(new Commandfreeitem(this));
 		getCommand("healthy").setExecutor(new Commandhealthy(this));
