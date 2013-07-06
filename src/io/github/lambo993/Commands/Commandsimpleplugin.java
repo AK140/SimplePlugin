@@ -23,20 +23,24 @@ public class Commandsimpleplugin implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("reload")) {
 				if(sender.hasPermission("simpleplugin.reload")) {
 					this.plugin.reloadConfig();
+					sender.sendMessage("§6SimplePlugin Reloaded §c0.5.3");
 				} else {
-					sender.sendMessage("§4You do not have access to that command.");
+					sender.sendMessage("§4You do not have permissions to reload the config");
 				}
 			}
 			if(args[0].equalsIgnoreCase("version")) {
-				sender.sendMessage("§6SimplePlugin version 0.4.8");
+				sender.sendMessage("§6SimplePlugin version 0.5.2");
 				sender.sendMessage("§6Description: This is a very simple plugins.");
+				sender.sendMessage("§6authors: §eLambo993§r, §emahmoudnaruto96");
 			}
 			if(args[0].equalsIgnoreCase("help")) {
 				sender.sendMessage("§6Help for simpleplugin");
-				sender.sendMessage("§6/ignite:§r Burns a player");
-				sender.sendMessage("§6/echo:§r echo a message");
-				sender.sendMessage("§6/freeitem:§r Gives you a free item!");
-				sender.sendMessage("§6/healthy:§r Heals you or the given player.");
+				sender.sendMessage("§6/ignite§r: Burns a player");
+				sender.sendMessage("§6/freeitem§r: Gives you a free item!");
+				sender.sendMessage("§6/healthy§r: Heals you or the given player.");
+				sender.sendMessage("§6/generateblock§r: Generate a block on top of you!");
+				sender.sendMessage("§6/rule§r: Show the rules.");
+				sender.sendMessage("§6/pm§r: Private messages someone.");
 			}
 			if(args[0].equalsIgnoreCase("moo")) {
 				if (sender instanceof ConsoleCommandSender)
@@ -56,14 +60,9 @@ public class Commandsimpleplugin implements CommandExecutor {
 					final Player player = (Player)sender;
 					player.playSound(player.getLocation(), Sound.COW_IDLE, 1, 1.0f);
 			}
-			if(args[0].isEmpty()) {
-				sender.sendMessage(new String[] {
-						"Usage:", "/simpleplugin <help|reload|version>"
-				});
-			}
+			sender.sendMessage("Usage: /simpleplugin <help/reload/version>");
 			return true;
 		}
 		return false;
 	}
-
 }

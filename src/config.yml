@@ -1,0 +1,7 @@
+# default config.yml
+WelcomeMessage: Welcome to the server! please follow the rules, to view the rules do /rule
+rules:
+  - Be respectful
+  - Don't advertise
+  - Play Fair
+  - Don't ask for ranks

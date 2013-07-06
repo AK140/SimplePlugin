@@ -25,7 +25,7 @@ public class Commandhealthy implements CommandExecutor {
 				return false;
 			}
 			target.sendMessage("§6You have been healed.");
-			sender.sendMessage("§6Healed " + target.getDisplayName());
+			sender.sendMessage("§6Healed " + target.getDisplayName() + "§6.");
 			target.setHealth(20);
 			target.setFoodLevel(20);
 			target.setFireTicks(0);

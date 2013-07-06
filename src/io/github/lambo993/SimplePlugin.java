@@ -2,18 +2,27 @@ package io.github.lambo993;
 
 import io.github.lambo993.Commands.*;
 
+import org.bukkit.event.*;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SimplePlugin extends JavaPlugin {
 	
-	public static final int BUKKIT_VERSION = 2794;
+	public static final int BUKKIT_VERSION = 2807;
 
 	@Override
 	public void onEnable() {
 		this.saveDefaultConfig();
-		this.getConfig().options().copyDefaults(true);
 		
 		this.getLogger().info("SimplePlugin has been enabled!");
+		
+		getServer().getPluginManager().registerEvents(new Listener() {
+			
+			@EventHandler
+			public void playerJoin(PlayerJoinEvent event) {
+				event.getPlayer().sendMessage(SimplePlugin.this.getConfig().getString("WelcomeMessage"));
+			}
+		},this);
 		
 		getCommand("simpleplugin").setExecutor(new Commandsimpleplugin(this));
 		getCommand("ignite").setExecutor(new Commandignite(this));
@@ -21,8 +30,8 @@ public final class SimplePlugin extends JavaPlugin {
 		getCommand("healthy").setExecutor(new Commandhealthy(this));
 		getCommand("Generateblock").setExecutor(new Commandgenerateblock(this));
 		getCommand("rule").setExecutor(new Commandrule(this));
-		getCommand("echo").setExecutor(new Commandecho(this));
 		getCommand("pm").setExecutor(new Commandpm(this));
+		getCommand("KillPlayer").setExecutor(new Commandkillplayer(this));
 		getCommand("ignite").setPermission("simpleplugin.burn");
 		getCommand("ignite").setPermissionMessage("§4You do not have access to that command.");
 		getCommand("FreeItem").setPermission("simpleplugin.freeitem");
@@ -31,12 +40,10 @@ public final class SimplePlugin extends JavaPlugin {
 		getCommand("healthy").setPermissionMessage("§4You do not have access to that command.");
 		getCommand("Generateblock").setPermission("simpleplugin.generateblock");
 		getCommand("Generateblock").setPermissionMessage("§4You do not have access to that command.");
-		getCommand("rule").setPermission("simpleplugin.rule");
-		getCommand("rule").setPermissionMessage("§4You do not have access to that command.");
-		getCommand("echo").setPermission("simpleplugin.echo");
-		getCommand("echo").setPermissionMessage("§4You do not have access to that command.");
 		getCommand("pm").setPermission("simpleplugin.pm");
 		getCommand("pm").setPermissionMessage("§4You do not have access to that command.");
+		getCommand("KillPlayer").setPermission("simpleplugin.killplayer");
+		getCommand("KillPlayer").setPermissionMessage("§4You do not have access to that command.");
 	}
 	
 	@Override

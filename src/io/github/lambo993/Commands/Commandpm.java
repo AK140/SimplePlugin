@@ -1,6 +1,5 @@
 package io.github.lambo993.Commands;
 
-import static io.github.lambo993.Commands.Commandecho.getFinalArg;
 import io.github.lambo993.SimplePlugin;
 
 import org.bukkit.command.*;
@@ -15,6 +14,20 @@ public class Commandpm implements CommandExecutor {
 	
 	public Commandpm(SimplePlugin plugin) {
 		this.plugin = plugin;
+	}
+	
+	public static String getFinalArg(final String[] args, final int start)
+	{
+		final StringBuilder bldr = new StringBuilder();
+		for (int i = start; i < args.length; i++)
+		{
+			if (i != start)
+			{
+				bldr.append(" ");
+			}
+			bldr.append(args[i]);
+		}
+		return bldr.toString();
 	}
 
 	@Override

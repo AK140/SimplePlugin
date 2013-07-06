@@ -1,12 +1,12 @@
 name: SimplePlugin
 main: io.github.lambo993.SimplePlugin
-version: 0.5.0
-authors: [Lambo993]
+version: 0.5.3
+authors: [Lambo993, mahmoudnaruto96]
 description: This is a very simple plugins.
 commands:
   simpleplugin:
-    description: SimplePlugin help
-    usage: /<command> <help|reload|version>
+    description: Reloads simpleplugin.
+    usage: /<command> <help/reload/version>
   ignite:
     description: Set a player on fire.
     aliases: [lighter]
@@ -14,28 +14,28 @@ commands:
   freeitem:
     description: Gives you a free item!
     aliases: [freegift]
-    usage: /<command> [item]
+    usage: /<command> <itemname> [amount]
   healthy:
     description: Heals you or the given player.
     aliases: [morehealth]
     usage: /<command> [player]
-  Generateblock:
-    description: Generate dirt block on top of you!
+  generateblock:
+    description: Generate a block on top of you!
     aliases: [Blockgenerate]
     usage: /<command> [block]
   rule:
     description: Show the rules.
     aliases: [simplerule]
-  echo:
-    description: Echo the last thing you said
-    aliases: [repeat]
-    usage: /<command> [msg]
   pm:
-    description: Private messages someone
+    description: Private messages someone.
     aliases: [privatemsg]
-    usage: /<command> <player> [message]
+    usage: /<command> <player> <message>
+  killplayer:
+    description: Kills a player.
+    aliases: [destroyplayer]
+    usage: /<command> <player>
 
 permisssions:
   simpleplugin.*:
-    description: Gives access to all test commands!
+    description: Gives access to all the commands!
     default: op
