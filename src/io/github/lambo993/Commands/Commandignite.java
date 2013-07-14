@@ -9,24 +9,29 @@ public class Commandignite implements CommandExecutor {
  
 	@SuppressWarnings("unused")
 	private SimplePlugin plugin;
- 
+
 	public Commandignite(SimplePlugin plugin) {
 		this.plugin = plugin;
 	}
- 
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-	    if(cmd.getName().equalsIgnoreCase("ignite") && args.length == 2 ) {
-	    	if (args.length < 0) {
-	    		sender.sendMessage("Set a player on fire.");
-	    		return false;
-	    	}
+	    if (cmd.getName().equalsIgnoreCase("ignite")) {
+	    	if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
+				sender.sendMessage("Set a player on fire.");
+				return false;
+			}
 	    	Player target = sender.getServer().getPlayer(args[0]);
 	    	if (target == null) {
-	    		sender.sendMessage("§4Player not found.");
-	    		return false;
+	    		sender.sendMessage("§cError: §4Player not found.");
+	    		return true;
 	    	}
-	    	target.setFireTicks(Integer.parseInt(args[1]) * 20);
+	    	try {
+	    	    target.setFireTicks(Integer.parseInt(args[1]) * 20);
+	    	} catch (NumberFormatException e) {
+	    	    sender.sendMessage("§cError: §4For input string: " + args[1]);
+	    	    return true;
+	    	}
 	    	sender.sendMessage("§6You set§c " + target.getDisplayName() + " §6on fire for§c " + Integer.parseInt(args[1]) + " seconds§6.");
 	        return true;
 	    }
