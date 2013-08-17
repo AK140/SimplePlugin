@@ -1,4 +1,4 @@
-package io.github.lambo993.Commands;
+package io.github.lambo993.commands;
 
 import io.github.lambo993.SimplePlugin;
 
@@ -20,9 +20,10 @@ public class Commandkillplayer implements CommandExecutor {
 			Player target = sender.getServer().getPlayer(args[0]);
 			if (target == null) {
 				sender.sendMessage("§cError: §4Player not found.");
+				return true;
 			}
-			target.setHealth(0);
-			sender.sendMessage("§6Killed§c " + target.getDisplayName() + "§6.");
+			target.setHealth(0.0);
+			sender.sendMessage("§6Killed§c " + target.getName() + "§6.");
 			return true;
 		}
 		return false;

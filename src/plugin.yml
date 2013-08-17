@@ -1,7 +1,7 @@
 name: SimplePlugin
 main: io.github.lambo993.SimplePlugin
-version: 0.5.3
-authors: [Lambo993, mahmoudnaruto96]
+version: 0.7.2
+authors: [Lambo993, Kjordo711]
 description: This is a very simple plugins.
 commands:
   simpleplugin:
@@ -11,29 +11,46 @@ commands:
     description: Set a player on fire.
     aliases: [lighter]
     usage: /<command> <player> <seconds>
+  hideme:
+    description: Hide yourself from a player.
+    aliases: [hidefrom]
+    usage: /<command> <player>
   freeitem:
     description: Gives you a free item!
-    aliases: [freegift]
-    usage: /<command> <itemname> [amount]
+    usage: /<command> <item|numeric> [amount]
+  freegift:
+    description: Gives a player free item!
+    usage: /<command> <player> <item|numeric> [amount]
   healthy:
     description: Heals you or the given player.
     aliases: [morehealth]
     usage: /<command> [player]
   generateblock:
     description: Generate a block on top of you!
-    aliases: [Blockgenerate]
-    usage: /<command> [block]
+    aliases: [blockgenerate]
+    usage: /<command> <block> <weigth>
   rule:
     description: Show the rules.
     aliases: [simplerule]
+    usage: /<command>
   pm:
-    description: Private messages someone.
+    description: Sends a private message to the specified player.
     aliases: [privatemsg]
     usage: /<command> <player> <message>
   killplayer:
     description: Kills a player.
     aliases: [destroyplayer]
     usage: /<command> <player>
+  explode:
+    description: Explodes the target.
+    aliases: [explosion]
+    usage: /<command> <player>
+  teleport:
+    description: Teleports to the destination cords.
+    usage: /<command> <x> <y> <z> [yaw] [pitch]
+  teleportto:
+    description: Teleports to the destination players.
+    usage: /<command> <player> [player2]
 
 permisssions:
   simpleplugin.*:

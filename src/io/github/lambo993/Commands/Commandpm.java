@@ -1,11 +1,11 @@
-package io.github.lambo993.Commands;
+package io.github.lambo993.commands;
+
+import java.util.regex.Pattern;
 
 import io.github.lambo993.SimplePlugin;
 
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-
-import com.earth2me.essentials.utils.FormatUtil;
 
 public class Commandpm implements CommandExecutor {
 	
@@ -15,6 +15,8 @@ public class Commandpm implements CommandExecutor {
 	public Commandpm(SimplePlugin plugin) {
 		this.plugin = plugin;
 	}
+	
+	static final transient Pattern REPLACE_PATTERN = Pattern.compile("&([0-9a-fk-orA-FK-OR])");
 	
 	public static String getFinalArg(final String[] args, final int start)
 	{
@@ -29,23 +31,44 @@ public class Commandpm implements CommandExecutor {
 		}
 		return bldr.toString();
 	}
+	
+	public static String replaceFormat(final String input)
+	{
+		if (input == null)
+		{
+			return null;
+		}
+		return REPLACE_PATTERN.matcher(input).replaceAll("\u00a7$1");
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(cmd.getName().equalsIgnoreCase("pm")) {
-			if(sender instanceof Player){
+			if (sender instanceof Player) {
+				if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
+					sender.sendMessage("Sends a private message to the specified player.");
+					return false;
+				}
 				Player player = (Player)sender;
 				Player target = player.getServer().getPlayer(args[0]);
-				if (target == null) {
+				if (target == null || !((Player)sender).canSee(target)) {
 					player.sendMessage("§cError: " + "§4Player not found.");
+					return true;
 				}
-				//TODO:remove the essentials dependency
-				player.sendMessage("§6[me -> " + target.getDisplayName() + " §6]§r " + FormatUtil.replaceFormat(getFinalArg(args, 1)));
-				target.sendMessage("§6[" + player.getDisplayName() + " §6-> me]§r " + FormatUtil.replaceFormat(getFinalArg(args, 1)));
+				player.sendMessage("§6[me -> " + target.getDisplayName() + " §6]§r " + replaceFormat(getFinalArg(args, 1)));
+				target.sendMessage("§6[" + player.getDisplayName() + " §6-> me]§r " + replaceFormat(getFinalArg(args, 1)));
 			} else {
+				if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
+					sender.sendMessage("Sends a private message to the specified player.");
+					return false;
+				}
 				Player target = sender.getServer().getPlayer(args[0]);
-				sender.sendMessage("§6[me -> " + target.getDisplayName() + "§6]§r " + FormatUtil.replaceFormat(getFinalArg(args, 1)));
-				target.sendMessage("§6[§cConsole -> " + " §6me]§r " + FormatUtil.replaceFormat(getFinalArg(args, 1)));
+				if (target == null) {
+					sender.sendMessage("§cError: " + "§4Player not found.");
+					return true;
+				}
+				sender.sendMessage("§6[me -> " + target.getDisplayName() + "§6]§r " + Commandpm.replaceFormat(getFinalArg(args, 1)));
+				target.sendMessage("§6[Console -> me]§r " + Commandpm.replaceFormat(getFinalArg(args, 1)));
 			}
 			return true;
 		}

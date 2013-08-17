@@ -5,3 +5,5 @@ rules:
   - Don't advertise
   - Play Fair
   - Don't ask for ranks
+explosion-fire: false
+operatorjoinmsg: Operator %operator% joined the game.

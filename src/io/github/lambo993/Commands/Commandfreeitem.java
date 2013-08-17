@@ -1,14 +1,11 @@
-package io.github.lambo993.Commands;
+package io.github.lambo993.commands;
 
 import io.github.lambo993.SimplePlugin;
 
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
+import org.bukkit.command.*;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.*;
 
 public class Commandfreeitem implements CommandExecutor {
 	
@@ -21,36 +18,37 @@ public class Commandfreeitem implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("FreeItem") && args.length == 2 ) {
+		if (cmd.getName().equalsIgnoreCase("freeitem")) {
 			if (sender instanceof Player) {
+				if (args.length == 0) {
+					return false;
+				}
 				Player player = (Player) sender;
 				PlayerInventory inventory = player.getInventory();
-				ItemStack wood = new ItemStack(Material.WOOD, Integer.parseInt(args[1]));
-				ItemStack dirt = new ItemStack(Material.DIRT, Integer.parseInt(args[1]));
-				ItemStack stone = new ItemStack(Material.STONE, Integer.parseInt(args[1]));
-				ItemStack diamond = new ItemStack(Material.DIAMOND, Integer.parseInt(args[1]));
-				ItemStack cake = new ItemStack(Material.CAKE, Integer.parseInt(args[1]));
-				ItemStack cobblestone = new ItemStack(Material.COBBLESTONE , Integer.parseInt(args[0]));
-				if(args[0].equalsIgnoreCase("Wood")){
-					inventory.addItem(wood);
-				}
-				if(args[0].equalsIgnoreCase("Dirt")){
-					inventory.addItem(dirt);
-				}
-				if(args[0].equalsIgnoreCase("Stone")){
-					inventory.addItem(stone);
-				}
-				if(args[0].equalsIgnoreCase("Diamond")){
-					inventory.addItem(diamond);
-				}
-				if(args[0].equalsIgnoreCase("Cake")){
-					inventory.addItem(cake);
-				}
-				if(args[0].equalsIgnoreCase("Cobblestone")) {
-					inventory.addItem(cobblestone);
+				if (args.length == 1) {
+					try {
+						ItemStack itemstack = new ItemStack(Material.matchMaterial(args[0]), 1);
+						inventory.addItem(itemstack);
+						sender.sendMessage("§6Giving§c 1 §6of§c " + Material.matchMaterial(args[0]) + "§6.");
+					} catch (NullPointerException ex) {
+						sender.sendMessage("§cError:§4 Unknown item name: " + args[0] + "§4.");
+						return true;
+					}
+					return true;
+				} else if (args.length == 2) {
+					try {
+						ItemStack itemstack = new ItemStack(Material.matchMaterial(args[0]), Integer.parseInt(args[1]));
+						inventory.addItem(itemstack);
+						sender.sendMessage("§6Giving§c " + Integer.parseInt(args[1]) + " §6of§c " + Material.matchMaterial(args[0]) + "§6.");
+					} catch (NullPointerException ex) {
+						sender.sendMessage("§cError:§4 Unknown item name: " + args[0] + "§4.");
+						return true;
+					} catch (NumberFormatException ex) {
+						return true;
+					}
 				}
 			} else {
-				sender.sendMessage("§cError:§4 freeitem can only be used by player!");
+				sender.sendMessage("§cError:§4 Only in-game can use freeitem.");
 			}
 			return true;
 		}

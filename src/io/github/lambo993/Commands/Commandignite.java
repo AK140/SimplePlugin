@@ -1,4 +1,4 @@
-package io.github.lambo993.Commands;
+package io.github.lambo993.commands;
 
 import io.github.lambo993.SimplePlugin;
 
@@ -16,7 +16,7 @@ public class Commandignite implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-	    if (cmd.getName().equalsIgnoreCase("ignite")) {
+	    if (label.equalsIgnoreCase("ignite")) {
 	    	if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
 				sender.sendMessage("Set a player on fire.");
 				return false;
@@ -25,11 +25,10 @@ public class Commandignite implements CommandExecutor {
 	    	if (target == null) {
 	    		sender.sendMessage("§cError: §4Player not found.");
 	    		return true;
-	    	}
-	    	try {
+	    	} try {
 	    	    target.setFireTicks(Integer.parseInt(args[1]) * 20);
-	    	} catch (NumberFormatException e) {
-	    	    sender.sendMessage("§cError: §4For input string: " + args[1]);
+	    	} catch (NumberFormatException ex) {
+	    	    sender.sendMessage("§cError: §4" + ex.getMessage());
 	    	    return true;
 	    	}
 	    	sender.sendMessage("§6You set§c " + target.getDisplayName() + " §6on fire for§c " + Integer.parseInt(args[1]) + " seconds§6.");
