@@ -49,12 +49,15 @@ public class SimplePluginPlayerListener implements Listener {
 		}
 		if (player.hasPermission("simpleplugin.event.explode")) {
 			if (player.getItemInHand().getType() == Material.WOOD_HOE) {
-			if (event.getClickedBlock().getType() == Material.AIR) {
+				try {
+					if (event.getClickedBlock().getType() == Material.AIR) {
 					event.setCancelled(true);
-			}else{
-				player.getWorld().createExplosion(player.getLocation(), 15F, plugin.getConfig().getBoolean("explosion-fire", false));
+					return;
 				}
-			}
+				player.getWorld().createExplosion(player.getLocation(), 15F, plugin.getConfig().getBoolean("explosion-fire", false));
+				 catch (NullPointerException ex) {
+					return;
+				}
 		}
 	}
 
