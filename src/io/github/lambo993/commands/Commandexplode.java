@@ -28,6 +28,7 @@ public class Commandexplode implements CommandExecutor {
 			sender.sendMessage("§6Creating explosion at§c " + target.getDisplayName());
 			target.sendMessage("§6Boom!");
 			target.getWorld().createExplosion(target.getLocation(), 10F, plugin.getConfig().getBoolean("explosion-fire", false));
+			target.damage(10.0);
 			return true;
 		}
 		return false;

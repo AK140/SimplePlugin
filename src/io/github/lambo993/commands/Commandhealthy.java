@@ -1,22 +1,13 @@
 package io.github.lambo993.commands;
 
-import io.github.lambo993.SimplePlugin;
-
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 public class Commandhealthy implements CommandExecutor {
 	
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-	
-	public Commandhealthy(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("healthy")) {
+		if (label.equalsIgnoreCase("healthy")) {
 			if (args.length != 1 || args[0].length() == 0) {
 				if (!(sender instanceof Player)) {
 					sender.sendMessage("Heals you or the given player.");

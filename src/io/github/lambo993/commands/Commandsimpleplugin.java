@@ -8,6 +8,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginDescriptionFile;
 
 public class Commandsimpleplugin implements CommandExecutor {
 
@@ -20,21 +21,25 @@ public class Commandsimpleplugin implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("simpleplugin")) {
-			 if (args.length != 1 || args[0].length() == 0)  {
+			 if (args.length != 1 || args[0].length() == 0) {
 				 return false;
 			 }
 			if (args[0].equalsIgnoreCase("reload")) {
 				if(sender.hasPermission("simpleplugin.reload")) {
 					this.plugin.reloadConfig();
-					sender.sendMessage("§6SimplePlugin Reloaded §c0.7.1");
+					sender.sendMessage("§6SimplePlugin Reloaded §c0.7.4");
 				} else {
 					sender.sendMessage("§4You do not have permissions to reload the config");
 				}
 			}
-			if (args[0].equalsIgnoreCase("version")) {
-				sender.sendMessage("§6SimplePlugin version 0.6.7");
-				sender.sendMessage("§6Description: This is a very simple plugins.");
-				sender.sendMessage("§6authors: §eLambo993§r, §emahmoudnaruto96");
+			if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("about")) {
+				PluginDescriptionFile pdf = plugin.getDescription();
+				sender.sendMessage(pdf.getFullName());
+				sender.sendMessage(pdf.getDescription());
+				sender.sendMessage(pdf.getVersion());
+				for (String s : pdf.getAuthors()) {
+					sender.sendMessage(s);
+				}
 			}
 			if (args[0].equalsIgnoreCase("help")) {
 				sender.sendMessage("§6Help for simpleplugin");

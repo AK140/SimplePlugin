@@ -1,7 +1,7 @@
 name: SimplePlugin
 main: io.github.lambo993.SimplePlugin
-version: 0.7.2
-authors: [Lambo993, Kjordo711]
+version: 0.7.4
+authors: [Lambo993, Kjordo771]
 description: This is a very simple plugins.
 commands:
   simpleplugin:
@@ -51,6 +51,10 @@ commands:
   teleportto:
     description: Teleports to the destination players.
     usage: /<command> <player> [player2]
+  helmet:
+    description: Sets the item in your hand as a hat.
+    usage: /<command>
+    aliases: [headgear]
 
 permisssions:
   simpleplugin.*:

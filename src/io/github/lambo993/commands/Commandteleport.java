@@ -1,20 +1,11 @@
 package io.github.lambo993.commands;
 
-import io.github.lambo993.SimplePlugin;
-
 import org.bukkit.Location;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 public class Commandteleport implements CommandExecutor {
-
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-
-	public Commandteleport(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

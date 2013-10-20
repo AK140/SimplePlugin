@@ -1,22 +1,12 @@
 package io.github.lambo993.commands;
 
 import java.util.regex.Pattern;
-
-import io.github.lambo993.SimplePlugin;
-
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 public class Commandpm implements CommandExecutor {
 	
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-	
-	public Commandpm(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
-	
-	static final transient Pattern REPLACE_PATTERN = Pattern.compile("&([0-9a-fk-orA-FK-OR])");
+	private static final transient Pattern REPLACE_PATTERN = Pattern.compile("&([0-9a-fk-orA-FK-OR])");
 	
 	public static String getFinalArg(final String[] args, final int start)
 	{

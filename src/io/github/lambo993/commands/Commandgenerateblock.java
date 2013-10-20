@@ -1,7 +1,5 @@
 package io.github.lambo993.commands;
 
-import io.github.lambo993.SimplePlugin;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -13,22 +11,17 @@ import org.bukkit.entity.Player;
 
 public class Commandgenerateblock implements CommandExecutor {
 
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-
-	public Commandgenerateblock(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
-
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("Generateblock") && args.length == 2) {
+		if (label.equalsIgnoreCase("generateblock") && args.length == 2) {
 			if (sender instanceof Player) {
 				Player player = (Player)sender;
-				Location loc = player.getPlayer().getLocation();
+				Location loc = player.getLocation();
 				World world = loc.getWorld();
+				int locY;
 				try {
-					loc.setY(loc.getY() + Integer.parseInt(args[1]));
+					locY = Integer.parseInt(args[1]);
+					loc.setY(loc.getY() + locY);
 				} catch (NumberFormatException ex) {
 					sender.sendMessage("§cError: §4" + ex.getMessage());
 					return true;
@@ -36,7 +29,12 @@ public class Commandgenerateblock implements CommandExecutor {
 				Block block = world.getBlockAt(loc);
 				try {
 					block.setType(Material.matchMaterial(args[0]));
-					player.sendMessage("Generated Block " + Material.matchMaterial(args[0]) + " on top of you!");
+					String material = Material.matchMaterial(args[0]).toString().toLowerCase();
+					if (locY > 0) {
+						player.sendMessage("Generated Block " + material + " on top of you!");
+					} else {
+						player.sendMessage("Generated Block " + material + " below of you!");
+					}
 				} catch (NullPointerException e) {
 					sender.sendMessage(args[0] + " is not a block");
 					return true;
@@ -49,8 +47,7 @@ public class Commandgenerateblock implements CommandExecutor {
 		return false;
 	}
 
-	//Unused right now
-	public void generateCube(Location loc, int length) {
+	public void generateCube(Location loc, int length, Material type) {
 		// Set one corner of the cube to the given location.
 		// Uses getBlockN() instead of getN() to avoid casting to an int later.
 		int x1 = loc.getBlockX(); 
@@ -73,7 +70,7 @@ public class Commandgenerateblock implements CommandExecutor {
 					// Get the block that we are currently looping over.
 					Block currentBlock = world.getBlockAt(xPoint, yPoint, zPoint);
 					// Set the block to type 57 (Diamond block!)
-					currentBlock.setTypeId(57);
+					currentBlock.setType(type);
 				}
 			}
 		}

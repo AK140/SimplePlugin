@@ -5,6 +5,7 @@ import io.github.lambo993.SimplePlugin;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.*;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -34,11 +35,13 @@ public class SimplePluginPlayerListener implements Listener {
 				player.sendMessage("Welcome you seem to be realy rich! so we gave you another stack of diamond!");
 			}
 		}
+
 		if (player.isOp()) {
 			player.getServer().broadcastMessage(plugin.getConfig().getString("operatorjoinmsg").replace("%operator%", player.getDisplayName()));
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL)
 	public void onPlayerInteractBlock(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
@@ -49,15 +52,12 @@ public class SimplePluginPlayerListener implements Listener {
 		}
 		if (player.hasPermission("simpleplugin.event.explode")) {
 			if (player.getItemInHand().getType() == Material.WOOD_HOE) {
-				try {
-					if (event.getClickedBlock().getType() == Material.AIR) {
+				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_AIR) {
 					event.setCancelled(true);
-					return;
+				} else {
+					player.getWorld().createExplosion(player.getLocation(), 15F, plugin.getConfig().getBoolean("explosion-fire", false));
 				}
-				player.getWorld().createExplosion(player.getLocation(), 15F, plugin.getConfig().getBoolean("explosion-fire", false));
-				 catch (NullPointerException ex) {
-					return;
-				}
+			}
 		}
 	}
 

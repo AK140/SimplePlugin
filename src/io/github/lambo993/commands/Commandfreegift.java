@@ -1,20 +1,11 @@
 package io.github.lambo993.commands;
 
-import io.github.lambo993.SimplePlugin;
-
 import org.bukkit.Material;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
 
 public class Commandfreegift implements CommandExecutor {
-
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-	
-	public Commandfreegift(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {

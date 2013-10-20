@@ -1,23 +1,17 @@
 package io.github.lambo993.commands;
-
-import io.github.lambo993.SimplePlugin;
   
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
 public class Commandhideme implements CommandExecutor {
-
-	@SuppressWarnings("unused")
-	private SimplePlugin plugin;
-	
-	public Commandhideme(SimplePlugin plugin) {
-		this.plugin = plugin;
-	}
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("HideMe") && args.length == 1 ) {
+		if (label.equalsIgnoreCase("HideMe")) {
 			if (sender instanceof Player) {
+				if (args.length != 1) {
+					return false;
+				}
 				Player player = (Player)sender; 
 				Player target = player.getServer().getPlayer(args[0]);
 				if (target == null) {
