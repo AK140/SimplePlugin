@@ -15,7 +15,7 @@ public class Commandexplode implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("explode")) {
+		if (label.equalsIgnoreCase("explode")) {
 			if (args.length != 1 || args[0].length() == 0) {
 				sender.sendMessage("Explodes the target.");
 				return false;
@@ -27,7 +27,7 @@ public class Commandexplode implements CommandExecutor {
 			}
 			sender.sendMessage("§6Creating explosion at§c " + target.getDisplayName());
 			target.sendMessage("§6Boom!");
-			target.getWorld().createExplosion(target.getLocation(), 10F, plugin.getConfig().getBoolean("explosion-fire", false));
+			target.getWorld().createExplosion(target.getLocation(), (float)plugin.getConfig().getDouble("explosion.power"), plugin.getConfig().getBoolean("explosion.fire", false));
 			target.damage(10.0);
 			return true;
 		}

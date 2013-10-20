@@ -55,7 +55,7 @@ public class SimplePluginPlayerListener implements Listener {
 				if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_AIR) {
 					event.setCancelled(true);
 				} else {
-					player.getWorld().createExplosion(player.getLocation(), 15F, plugin.getConfig().getBoolean("explosion-fire", false));
+					player.getWorld().createExplosion(player.getLocation(), (float)plugin.getConfig().getDouble("explosion.power"), plugin.getConfig().getBoolean("explosion.fire", false));
 				}
 			}
 		}
