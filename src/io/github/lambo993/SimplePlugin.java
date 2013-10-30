@@ -8,13 +8,12 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.bukkit.Server;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SimplePlugin extends JavaPlugin {
 
-	public static final int BUKKIT_VERSION = 2900;
+	public static final int BUKKIT_VERSION = 2912;
 	public static final Logger LOGGER = Logger.getLogger("Minecraft");
 	private final SimplePluginPlayerListener playerListener = new SimplePluginPlayerListener(this);
 
@@ -48,9 +47,9 @@ public final class SimplePlugin extends JavaPlugin {
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "Error lost response to report.mcstats.org");
 		}
-		this.saveDefaultConfig();
-		this.getConfig().options().copyDefaults(true);
-		this.reloadConfig();
+		saveDefaultConfig();
+		getConfig().options().copyDefaults(true);
+		reloadConfig();
 		
 		getLogger().info("SimplePlugin has been enabled!");
 		pm.registerEvents(playerListener, this);
@@ -60,15 +59,16 @@ public final class SimplePlugin extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
-		this.saveConfig();
+		saveConfig();
 		
-		this.getLogger().info("SimplePlugin has been disabled!");
+		LOGGER.log(Level.INFO, "[%s] SimplePlugin has been disabled!");
 	}
 
 	private void initCommands(String permMessage) {
 		getCommand("simpleplugin").setExecutor(new Commandsimpleplugin(this));
 		getCommand("ignite").setExecutor(new Commandignite());
-		getCommand("Hideme").setExecutor(new Commandhideme());
+		getCommand("hideme").setExecutor(new Commandhideme());
+		getCommand("unhideme").setExecutor(new Commandunhideme());
 		getCommand("freeitem").setExecutor(new Commandfreeitem());
 		getCommand("freegift").setExecutor(new Commandfreegift());
 		getCommand("healthy").setExecutor(new Commandhealthy());
@@ -82,8 +82,10 @@ public final class SimplePlugin extends JavaPlugin {
 		getCommand("helmet").setExecutor(new Commandhelmet());
 		getCommand("ignite").setPermission("simpleplugin.burn");
 		getCommand("ignite").setPermissionMessage(permMessage);
-		getCommand("Hideme").setPermission("simpleplugin.hideme");
-		getCommand("Hideme").setPermissionMessage(permMessage);
+		getCommand("hideme").setPermission("simpleplugin.hideme");
+		getCommand("hideme").setPermissionMessage(permMessage);
+		getCommand("unhideme").setPermission("simpleplugin.unhideme");
+		getCommand("unhideme").setPermissionMessage(permMessage);
 		getCommand("freeitem").setPermission("simpleplugin.freeitem");
 		getCommand("freeitem").setPermissionMessage(permMessage);
 		getCommand("freegift").setPermission("simpleplugin.freeitem.give");
@@ -104,6 +106,10 @@ public final class SimplePlugin extends JavaPlugin {
 		getCommand("teleportto").setPermissionMessage(permMessage);
 		getCommand("helmet").setPermission("simpleplugin.helmet");
 		getCommand("helmet").setPermissionMessage(permMessage);
+	}
+
+	public String configColor(String color) {
+		return color.replaceAll("(&([a-f0-9]))", "§$2");
 	}
 
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-WelcomeMessage: Welcome to the server! please follow the rules, to view the rules do /rule
+WelcomeMessage: '&6Welcome to the server! please follow the rules, to view the rules do &r/rule'
 rules:
   - Be respectful
   - Don't advertise
@@ -7,4 +7,4 @@ rules:
 explosion:
   power: 10.0
   fire: false
-operatorjoinmsg: Operator %operator% joined the game.
+operatorjoinmsg: '&6Operator&4 %operator% &6joined the game.'

@@ -9,7 +9,7 @@ public class Commandfreegift implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("freegift") && args.length == 3 ) {
+		if (label.equalsIgnoreCase("freegift") && args.length == 3 ) {
 			Player target = sender.getServer().getPlayer(args[0]);
 			if (target == null) {
 				sender.sendMessage("§cError: §4Player not found.");

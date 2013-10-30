@@ -33,7 +33,7 @@ public class Commandpm implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(cmd.getName().equalsIgnoreCase("pm")) {
+		if (label.equalsIgnoreCase("pm")) {
 			if (sender instanceof Player) {
 				if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
 					sender.sendMessage("Sends a private message to the specified player.");

@@ -13,8 +13,11 @@ public class Commandgenerateblock implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (label.equalsIgnoreCase("generateblock") && args.length == 2) {
+		if (label.equalsIgnoreCase("generateblock")) {
 			if (sender instanceof Player) {
+				if (args.length < 2 || args[0].trim().length() < 2 || args[1].trim().isEmpty()) {
+					return false;
+				}
 				Player player = (Player)sender;
 				Location loc = player.getLocation();
 				World world = loc.getWorld();
@@ -31,9 +34,9 @@ public class Commandgenerateblock implements CommandExecutor {
 					block.setType(Material.matchMaterial(args[0]));
 					String material = Material.matchMaterial(args[0]).toString().toLowerCase();
 					if (locY > 0) {
-						player.sendMessage("Generated Block " + material + " on top of you!");
+						player.sendMessage("Generated Block " + material.toLowerCase() + " on top of you!");
 					} else {
-						player.sendMessage("Generated Block " + material + " below of you!");
+						player.sendMessage("Generated Block " + material.toLowerCase() + " below of you!");
 					}
 				} catch (NullPointerException e) {
 					sender.sendMessage(args[0] + " is not a block");
@@ -47,29 +50,21 @@ public class Commandgenerateblock implements CommandExecutor {
 		return false;
 	}
 
-	public void generateCube(Location loc, int length, Material type) {
-		// Set one corner of the cube to the given location.
-		// Uses getBlockN() instead of getN() to avoid casting to an int later.
+	public static void generateCube(Location loc, int length, Material type) {
 		int x1 = loc.getBlockX(); 
 		int y1 = loc.getBlockY();
 		int z1 = loc.getBlockZ();
 
-		// Figure out the opposite corner of the cube by taking the corner and adding length to all coordinates.
 		int x2 = x1 + length;
 		int y2 = y1 + length;
 		int z2 = z1 + length;
 
 		World world = loc.getWorld();
 
-		// Loop over the cube in the x dimension.
 		for (int xPoint = x1; xPoint <= x2; xPoint++) {
-			// Loop over the cube in the y dimension.
 			for (int yPoint = y1; yPoint <= y2; yPoint++) {
-				// Loop over the cube in the z dimension.
 				for (int zPoint = z1; zPoint <= z2; zPoint++) {
-					// Get the block that we are currently looping over.
 					Block currentBlock = world.getBlockAt(xPoint, yPoint, zPoint);
-					// Set the block to type 57 (Diamond block!)
 					currentBlock.setType(type);
 				}
 			}

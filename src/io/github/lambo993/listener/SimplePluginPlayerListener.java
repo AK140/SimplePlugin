@@ -18,31 +18,28 @@ public class SimplePluginPlayerListener implements Listener {
 		plugin = instance;
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler (priority = EventPriority.HIGH)
 	public void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
-		player.sendMessage(plugin.getConfig().getString("WelcomeMessage"));
-		if (player.hasPermission("simpleplugin.event.joingift")) {
-			PlayerInventory inventory = player.getInventory();
-			ItemStack diamondstack = new ItemStack(Material.DIAMOND, 64);
-			ItemStack diamond = new ItemStack(Material.DIAMOND, 1);
-			ItemStack emeraldstack = new ItemStack(Material.EMERALD, 64);
-			ItemStack emerald = new ItemStack(Material.EMERALD, 1);
-			
-			if (inventory.contains(diamondstack) && inventory.contains(emeraldstack)) {
+		if (!player.hasPlayedBefore()) {
+			player.sendMessage(plugin.configColor(plugin.getConfig().getString("WelcomeMessage")));
+			if (player.hasPermission("simpleplugin.event.joingift")) {
+				PlayerInventory inventory = player.getInventory();
+				ItemStack diamond = new ItemStack(Material.DIAMOND, 1);
+				ItemStack emerald = new ItemStack(Material.EMERALD, 1);
 				inventory.addItem(diamond);
 				inventory.addItem(emerald);
-				player.sendMessage("Welcome you seem to be realy rich! so we gave you another stack of diamond!");
+				player.sendMessage("Welcome you seem to be new so we gave you diamonds and emerald! :D");
 			}
 		}
 
 		if (player.isOp()) {
-			player.getServer().broadcastMessage(plugin.getConfig().getString("operatorjoinmsg").replace("%operator%", player.getDisplayName()));
+			player.getServer().broadcastMessage(plugin.configColor(plugin.getConfig().getString("operatorjoinmsg").replace("%operator%", player.getDisplayName())));
 		}
 	}
 	
 	@SuppressWarnings("deprecation")
-	@EventHandler(priority = EventPriority.NORMAL)
+	@EventHandler
 	public void onPlayerInteractBlock(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
 		if (player.hasPermission("simpleplugin.event.thunder")) {
@@ -61,7 +58,7 @@ public class SimplePluginPlayerListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler (priority = EventPriority.HIGHEST)
 	public void onPlayerEntityInteract(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
 		if (player.hasPermission("simpleplugin.event.ignite")) {

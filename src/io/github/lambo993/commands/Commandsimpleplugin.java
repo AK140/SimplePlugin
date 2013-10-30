@@ -20,20 +20,20 @@ public class Commandsimpleplugin implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("simpleplugin")) {
+		if (label.equalsIgnoreCase("simpleplugin")) {
 			 if (args.length != 1 || args[0].length() == 0) {
 				 return false;
 			 }
+			PluginDescriptionFile pdf = plugin.getDescription();
 			if (args[0].equalsIgnoreCase("reload")) {
 				if(sender.hasPermission("simpleplugin.reload")) {
 					this.plugin.reloadConfig();
-					sender.sendMessage("§6SimplePlugin Reloaded §c0.7.4");
+					sender.sendMessage("§6SimplePlugin Reloaded §c" + pdf.getVersion());
 				} else {
 					sender.sendMessage("§4You do not have permissions to reload the config");
 				}
 			}
 			if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("about")) {
-				PluginDescriptionFile pdf = plugin.getDescription();
 				sender.sendMessage(pdf.getFullName());
 				sender.sendMessage(pdf.getDescription());
 				sender.sendMessage(pdf.getVersion());

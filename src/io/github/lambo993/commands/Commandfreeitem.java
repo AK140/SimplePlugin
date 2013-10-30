@@ -9,7 +9,7 @@ public class Commandfreeitem implements CommandExecutor {
 	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("freeitem")) {
+		if (label.equalsIgnoreCase("freeitem")) {
 			if (sender instanceof Player) {
 				if (args.length == 0) {
 					return false;
